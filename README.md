@@ -13,7 +13,7 @@ The final project of the college subject SCC0251 - Image Processing.
 
 ## Project description
 
-Our goal with this project is build a program able to recognize letters of a braille text present in a image digitally generated. To do this we gonna need use some image processing techniques like enhancement, segmentation and description.
+Our goal with this project is to build a program able to recognize letters of a braille text present in a image digitally generated. To do this we gonna need use some image processing techniques like enhancement, segmentation and description.
 
 Here are some examples of images that we plan be able to recognize:
 
