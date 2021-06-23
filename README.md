@@ -22,3 +22,28 @@ Here are some examples of images that we plan be able to recognize:
   ### ![Image 2](https://www.louisbrailleonlineresource.org/uploads/1/9/4/4/19443713/editor/cci15012018-2-2.jpg?1516060813)
 
 The source of the images: https://www.louisbrailleonlineresource.org/the-first-ten-letters.html.
+
+## Main objective
+The main objective of this project is to build a program able to recognize letters of a braille text present in an image digitally generated, i.e, given an input image, containing a text in braille, perform the translation to the alphabetic writing system.
+
+## Description of input images
+The images we will use will be images with braille text, with a good contrast between the background and the text, regardless of the chosen colors. Below are some examples, with black symbols and white background:
+
+  ### ![Image 1]
+  Figure 1 - “bruh” braille text example.
+  ### ![Image 2]
+  Figure 2 - “image processing” braille text example.
+  
+Figures 1 and 2 were generated using the Fonte meme website.
+Texts were also generated with the Braille library, available on GitHub. Using it, we can obtain white symbols with a black background, still maintaining a good contrast.
+
+  ### ![Image 3]
+  Figure 3 - “hello world” braille text example.
+  
+## Steps to reach the objective
+First, we will apply enhancements to the images to highlight the color changes between the symbols and the background in order to obtain an image only with levels 0 and 255 of color intensity. We will use the piecewise intensity transformation function, selecting the appropriate threshold for this.
+
+Second, we will apply an image segmentation, so we can separate the symbols within each sentence of text and then pass those symbols to a final step in the program. Therefore, as we know that a set of braille symbols can vary between them, the algorithm will be able to identify different distances - letter to letter, word to word or just distances between each symbol that make up a letter - and, with that information, be able to capture every feature of the image. 
+
+Finally, we will apply the image description to split the input images, so that we can compare with a dictionary and recognize the letters that the symbols represent. The framework Bag of Features (or Bag of Visual Words) will be used, which, based on patterns (in our context, alphabetic letters in the braille system), learns descriptors, which will be used to identify symbols in images.
+
