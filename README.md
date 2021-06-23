@@ -1,5 +1,5 @@
 # Image-Processing-SCC0251---Final-project
-The final project of the college subject SCC0251 - Image Processing.
+Final graduation project of the SCC0251 - Image Processing discipline.
 
 ## Students
 
