@@ -25,7 +25,7 @@ The images we will use will be images with braille text, with a good contrast be
 Figures 1 and 2 were generated using the [Fonte meme](https://fontmeme.com/braille/) website.
 Texts were also generated with the [Braille library](https://github.com/AaditT/braille), available on GitHub. Using it, we can obtain white symbols with a black background, still maintaining a good contrast.
 
-  ### ![Image 3](../images/hello_world.png)
+  ### ![Image 3](/images/hello_world.png)
   Figure 3 - “hello world” braille text example.
   
 ## Steps to reach the objective
