@@ -19,13 +19,13 @@ The images we will use will be images with braille text, with a good contrast be
 
   ### ![Image 1](https://fontmeme.com/temporary/d87d6a58412750d2a0404687d22e4a1f.png)
   Figure 1 - “bruh” braille text example.
-  ### ![Image 2]
+  ### ![Image 2](https://fontmeme.com/temporary/810b93ad97fffc71b12c254742b15cd4.png)
   Figure 2 - “image processing” braille text example.
   
-Figures 1 and 2 were generated using the Fonte meme website.
-Texts were also generated with the Braille library, available on GitHub. Using it, we can obtain white symbols with a black background, still maintaining a good contrast.
+Figures 1 and 2 were generated using the [Fonte meme](https://fontmeme.com/braille/) website.
+Texts were also generated with the [Braille library](https://github.com/AaditT/braille), available on GitHub. Using it, we can obtain white symbols with a black background, still maintaining a good contrast.
 
-  ### ![Image 3]
+  ### ![Image 3]()
   Figure 3 - “hello world” braille text example.
   
 ## Steps to reach the objective
