@@ -21,7 +21,7 @@ The images we will use will be images with braille text, with a good contrast be
   ### ![Image 1](images/bruh.png)
   Figure 1 - “bruh” braille text example.
 <!--   ### ![Image 2](https://fontmeme.com/temporary/810b93ad97fffc71b12c254742b15cd4.png) -->
-  ### ![Image 2](images/image\ processing.png)
+  ### ![Image 2](images/imageProcessing.png)
   Figure 2 - “image processing” braille text example.
   
 Figures 1 and 2 were generated using the [Fonte meme](https://fontmeme.com/braille/) website.
