@@ -17,10 +17,9 @@ The main objective of this project is to build a program able to recognize lette
 ## Description of input images
 The images we will use will be images with braille text, with a good contrast between the background and the text, regardless of the chosen colors. Below are some examples, with black symbols and white background:
 
-<!--   ### ![Image 1](https://fontmeme.com/temporary/d87d6a58412750d2a0404687d22e4a1f.png) -->
   ### ![Image 1](images/bruh.png)
   Figure 1 - “bruh” braille text example.
-<!--   ### ![Image 2](https://fontmeme.com/temporary/810b93ad97fffc71b12c254742b15cd4.png) -->
+
   ### ![Image 2](images/imageProcessing.png)
   Figure 2 - “image processing” braille text example.
   
@@ -37,3 +36,15 @@ Second, we will apply an image segmentation, so we can separate the symbols with
 
 Finally, we will apply the image description to split the input images, so that we can compare with a dictionary and recognize the letters that the symbols represent. The framework Bag of Features (or Bag of Visual Words) will be used, which, based on patterns (in our context, alphabetic letters in the braille system), learns descriptors, which will be used to identify symbols in images.
 
+## First results
+  
+  Down bellow we show some images before and after we conclude the image enhancement stage.
+
+  ### ![Image 4](/firstResults/enhancedHelloWorld.png)
+  Figure 4 - The image above is the original *Hello World* image and the other is the image after the enhancement applied.
+  
+  ### ![Image 5](/firstResults/enhancedColorized.png)
+  Figure 5 - The image above is the original *Colorized* image and the other is the image after the enhancement applied.
+  
+  ### ![Image 6](/firstResults/enhancedMyPrecius.png)
+  Figure 6 - The image above is the original *My Precious* image and the other is the image after the enhancement applied.
