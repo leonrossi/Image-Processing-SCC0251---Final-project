@@ -6,6 +6,7 @@ import scipy.ndimage
 import sys
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
+from skimage import morphology
 
 ####### Functions definitions ######
 
@@ -257,6 +258,9 @@ grayscale_img = Quantisation(grayscale_img, _quant_par)
 
 g_ref_img = To_grayscale(ref_img)
 g_ref_img = Quantisation(g_ref_img, _quant_par)
+
+grayscale_img = morphology.closing(grayscale_img, morphology.disk(4)).astype(np.uint8)
+g_ref_img = morphology.closing(g_ref_img, morphology.disk(4)).astype(np.uint8)
 ############################################
 
 
@@ -280,6 +284,16 @@ for i in range (0, M-1, 59): # creating windows and their descriptors
         wind_descr[a] = Create_descriptors(windows[a], _quant_par)
         a += 1
 
+fig, ax = plt.subplots(2,5)
+ax[0][0].imshow(windows[0])
+ax[0][1].imshow(windows[1])
+ax[0][2].imshow(windows[2])
+ax[0][3].imshow(windows[3])
+ax[0][4].imshow(windows[4])
+ax[1][0].imshow(grayscale_img)
+#rect = patches.Rectangle (( 59, close*64), 59, 64, linewidth=1, edgecolor='r', facecolor='none')
+#ax.add_patch(rect)
+plt.show()
 min_dist = sys.maxsize
 close = -1
 
@@ -294,11 +308,6 @@ for y in range (int(M/59)):
 #################################
 
 
-fig, ax = plt.subplots()
-ax.imshow(ref_img)
-#rect = patches.Rectangle (( close_x*59, close_y*64), 59, 64, linewidth=1, edgecolor='r', facecolor='none')
-# ax.add_patch(rect)
-plt.show()
 
 ###### Printing the results #####
 print("Janela ", close)
