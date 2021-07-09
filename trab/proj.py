@@ -240,32 +240,36 @@ def Difference(a, b):
 
 
 ####### input reading #######
-_img_obj = input().rstrip() # read object image's name
+
 _img_ref = input().rstrip() # read reference image's name
-_quant_par = int(input()) # read quantisation parameter b <= 8
+_quant_par = 1 # read quantisation parameter b <= 8
 ##############################
 
 
 ####### reading image #######
-obj_img = imageio.imread(_img_obj)
+dot_left = imageio.imread("_left_dot.png")
+dot_right = imageio.imread("_right_dot.png")
 ref_img = imageio.imread(_img_ref)
 #############################
 
-
 ###### Preprocessing and Quantisation ######
-grayscale_img = To_grayscale(obj_img)
-grayscale_img = Quantisation(grayscale_img, _quant_par)
+grayscale_left = To_grayscale(dot_left)
+grayscale_right = To_grayscale(dot_right)
+grayscale_left = Quantisation(grayscale_left, _quant_par)
+grayscale_right = Quantisation(grayscale_right, _quant_par)
 
 g_ref_img = To_grayscale(ref_img)
 g_ref_img = Quantisation(g_ref_img, _quant_par)
 
-grayscale_img = morphology.closing(grayscale_img, morphology.disk(4)).astype(np.uint8)
+grayscale_left = morphology.closing(grayscale_left, morphology.disk(4)).astype(np.uint8)
+grayscale_right = morphology.closing(grayscale_right, morphology.disk(4)).astype(np.uint8)
 g_ref_img = morphology.closing(g_ref_img, morphology.disk(4)).astype(np.uint8)
 ############################################
 
 
 ###### Creating Image Descriptors ##########
-descriptor = Create_descriptors(grayscale_img, _quant_par)
+descriptor_left = Create_descriptors(grayscale_left, _quant_par)
+descriptor_right = Create_descriptors(grayscale_right, _quant_par)
 ############################################
 
 
@@ -274,37 +278,55 @@ N,M = g_ref_img.shape
 print("n: ", N)
 print("m: ", M)
 
-windows = np.empty((int(M/59), 64, 59))
-wind_descr = np.empty((int(M/59), (2**_quant_par)+5+9), dtype=np.double)
+windows = np.empty((int(M/50)*6, 18, 25))
+wind_descr = np.empty((int(M/50)*6, (2**_quant_par)+5+9), dtype=np.double)
 
 
 a = 0
-for i in range (0, M-1, 59): # creating windows and their descriptors
-        windows[a] = g_ref_img[:,i:i+59]
-        wind_descr[a] = Create_descriptors(windows[a], _quant_par)
-        a += 1
+for i in range (0, M-1, 50): # creating windows and their descriptors
+        temp_wind = g_ref_img[:,i:i+50]
+        n,m = temp_wind.shape
+        windows[a] = temp_wind[:int(n/3),:int(m/2)] # 1
+        windows[a+1] = temp_wind[:int(n/3),int(m/2):m] # 01
+        windows[a+2] = temp_wind[int(n/3):int(2*n/3),:int(m/2)] # 00/1
+        windows[a+3] = temp_wind[int(n/3):int(2*n/3),int(m/2):m] # 00/01
+        windows[a+4] = temp_wind[int(2*n/3):n,:int(m/2)] # 00/00/1
+        windows[a+5] = temp_wind[int(2*n/3):n,int(m/2):m] # 00/00/01
 
-fig, ax = plt.subplots(2,5)
-ax[0][0].imshow(windows[0])
-ax[0][1].imshow(windows[1])
-ax[0][2].imshow(windows[2])
-ax[0][3].imshow(windows[3])
-ax[0][4].imshow(windows[4])
-ax[1][0].imshow(grayscale_img)
-#rect = patches.Rectangle (( 59, close*64), 59, 64, linewidth=1, edgecolor='r', facecolor='none')
-#ax.add_patch(rect)
-plt.show()
+        wind_descr[a] = Create_descriptors(windows[a], _quant_par)
+        wind_descr[a+1] = Create_descriptors(windows[a+1], _quant_par)
+        wind_descr[a+2] = Create_descriptors(windows[a+2], _quant_par)
+        wind_descr[a+3] = Create_descriptors(windows[a+3], _quant_par)
+        wind_descr[a+4] = Create_descriptors(windows[a+4], _quant_par)
+        wind_descr[a+5] = Create_descriptors(windows[a+5], _quant_par)
+
+        plt.show()
+        a += 6
+
 min_dist = sys.maxsize
 close = -1
 
 # calculating the distances and finding the closest window
-for y in range (int(M/59)):
-    a = Difference(descriptor, wind_descr[y])
-    print(a)
-    if min_dist > a and a >= 0:
-        min_dist = a
-        close = y
+a = 0
+for y in range (int(M/50)):
+    letter_value = np.zeros(6, dtype=np.int8)
+    for i in range(6):
+        if Difference(descriptor_left, wind_descr[a+i]) <= 0.0001 or Difference(descriptor_right, wind_descr[a+i]) <= 0.0001:
+            letter_value[i] = 1
 
+    #fig, ax = plt.subplots(4,2)
+    #ax[0][0].imshow(windows[a])
+    #ax[0][1].imshow(windows[a+1])
+    #ax[1][0].imshow(windows[a+2])
+    #ax[1][1].imshow(windows[a+3])
+    #ax[2][0].imshow(windows[a+4])
+    #ax[2][1].imshow(windows[a+5])
+    #ax[3][0].imshow(grayscale_left)
+    #ax[3][1].imshow(grayscale_right)
+    #plt.show()
+
+    print(letter_value)
+    a += 6
 #################################
 
 
