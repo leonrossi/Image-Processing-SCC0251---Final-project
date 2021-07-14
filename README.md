@@ -11,6 +11,8 @@ Final graduation project of the SCC0251 - Image Processing discipline.
 
   [Witor Matheus Alves de Oliveira](https://github.com/witorMao)
 
+  We all participate equally in the development of the project by doing most of the times pair coding.
+
 ## Main objective
 The main objective of this project is to build a program able to recognize letters of a braille text present in an image digitally generated, i.e, given an input image, containing a text in braille, perform the translation to the alphabetic writing system.
 
