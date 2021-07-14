@@ -73,4 +73,4 @@ Here we show some results obtained with the program:
 
 ## Presentation
   
-   [Here](https://drive.google.com/file/d/1h5xpIiip5q8gXTivfMAuVmEWajXoO0Ae/view) is the link to video presentatio of this project.
+   [Here](https://drive.google.com/file/d/1h5xpIiip5q8gXTivfMAuVmEWajXoO0Ae/view) is the link to video presentation of this project.
