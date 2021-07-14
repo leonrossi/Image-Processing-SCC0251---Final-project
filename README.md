@@ -5,7 +5,7 @@ Final graduation project of the SCC0251 - Image Processing discipline.
 
   [Caio Basso](https://github.com/caioadb)
 
-  [Gabriel Garcia Lorencetti](https://github.com/gabrielgarcia7)
+  [Gabriel Garcia Lorencetti](https://github.com/gabriellorencetti)
 
   [Leonardo Rossi Luiz](https://github.com/leonrossi)
 
@@ -15,26 +15,25 @@ Final graduation project of the SCC0251 - Image Processing discipline.
 The main objective of this project is to build a program able to recognize letters of a braille text present in an image digitally generated, i.e, given an input image, containing a text in braille, perform the translation to the alphabetic writing system.
 
 ## Description of input images
-The images we will use will be images with braille text, with a good contrast between the background and the text, regardless of the chosen colors. Below are some examples, with black symbols and white background:
+The images we will use will be images generated with our own program. For that we use the images related to the braille characters used in the dictionary.
 
-  ### ![Image 1](images/bruh.png)
-  Figure 1 - “bruh” braille text example.
+  ### ![Image 1](images/hello_wolrd.png)
+  Figure 1 - “hello world” braille text example.
 
   ### ![Image 2](images/imageProcessing.png)
   Figure 2 - “image processing” braille text example.
   
-Figures 1 and 2 were generated using the [Fonte meme](https://fontmeme.com/braille/) website.
-Texts were also generated with the [Braille library](https://github.com/AaditT/braille), available on GitHub. Using it, we can obtain white symbols with a black background, still maintaining a good contrast.
+  ### ![Image 3](images/carpe_diem.png)
+  Figure 3 - “carpe diem” braille text example.
 
-  ### ![Image 3](/images/hello_wolrd.png)
-  Figure 3 - “hello world” braille text example.
-  
 ## Steps to reach the objective
-First, we will apply enhancements to the images to highlight the color changes between the symbols and the background in order to obtain an image only with levels 0 and 255 of color intensity. We will use the piecewise intensity transformation function, selecting the appropriate threshold for this.
+First of all, we generate the images by giving a text to a program build previously, were each character of the text was converted to its respective braille character and then "append" these images to create the image that correspond to the intial text.
 
-Second, we will apply an image segmentation, so we can separate the symbols within each sentence of text and then pass those symbols to a final step in the program. Therefore, as we know that a set of braille symbols can vary between them, the algorithm will be able to identify different distances - letter to letter, word to word or just distances between each symbol that make up a letter - and, with that information, be able to capture every feature of the image. 
+We will apply enhancements to the images to highlight the color changes between the symbols and the background in order to obtain an image only with two colors. For this we use the [*luminance*](https://en.wikipedia.org/wiki/Luminance) technique for convert the input RGB image to a grayscale image. After this, we use the [*quantisation*](https://en.wikipedia.org/wiki/Quantization_(signal_processing)) technique with the argument 1 just to convert the values of intensity to a binary range and get a black/white image. The final step of the preprocessing part was use the [*closing*](https://en.wikipedia.org/wiki/Closing_(morphology)#:~:text=In%20image%20processing%2C%20closing%20is,while%20closing%20removes%20small%20holes.) technique to create a standard between the dots present in the images in order to make the future comparison part easier.
 
-Finally, we will apply the image description to split the input images, so that we can compare with a dictionary and recognize the letters that the symbols represent. The framework Bag of Features (or Bag of Visual Words) will be used, which, based on patterns (in our context, alphabetic letters in the braille system), learns descriptors, which will be used to identify symbols in images.
+Second, we apply an image segmentation, so we can separate the braille character in the given image and then pass those symbols to a final step in the program. For each character we divide it in six regions and then compare these regions with two images (the *right dot* and the *left dot* images) to identify if in the regions exist a dot or not and from that create a array of size six where each position represet one region of the character and receive 0 if that area do not have a dot or 1 if have it.
+
+Finally, we create a dictionary with the braille characters previously generated. After that we get the characters represented in the array form quoted above, then search for the character in the dictionary, if the character was found we append it to the final string that contains the translated text in the alfabetic form.
 
 ## First results
   
@@ -48,3 +47,27 @@ Finally, we will apply the image description to split the input images, so that 
   
   ### ![Image 6](/firstResults/enhancedMyPrecius.png)
   Figure 6 - The image above is the original *My Precious* image and the other is the image after the enhancement applied.
+
+## Final Results
+
+Here we show some results obtained with the program:
+
+  **Failure case**:
+
+  ### ![Image 7](/images/partial.png)
+  Figure 7 - image generated by a external font previously planned to be used.
+
+  We note that the distance between the characters change significantly and this occour for every external font that we tried so we choose to standardize the image genearation.
+
+  **Succes case**:
+
+  ### ![Image 8](/images/vem.png)
+  Figure 8 - Image generated by the text "vem vacina". 
+  
+  Bellow in the Figure 9 we have the result of the image above processed by the program.
+
+  ### ![Image 9](/images/resultado_vem.png)
+  Figure 9 - The result generated by the program for the Figure 8 as input.
+
+
+
